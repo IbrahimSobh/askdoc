@@ -10,7 +10,7 @@ from langchain.llms import GooglePalm
 from langchain.embeddings import GooglePalmEmbeddings
 
 #from langchain import PromptTemplate, HuggingFaceHub, LLMChain
-#from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 #from langchain.embeddings import HuggingFaceEmbeddings, SentenceTransformerEmbeddings
 
 # models 
