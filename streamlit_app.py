@@ -75,7 +75,7 @@ if len(result):
     # uncomment this for the full result
     # st.info(response['query'])
     # st.info(response['result'])
-    t.markdown('**References:** ' + response['result'])
+    st.markdown('**References:** ')
     for i, sd in enumerate(response['source_documents']):
         st.markdown('**Ref '+ sr(i) +' :** ' + sd.page_content) 
         #st.info(sd.page_content)
