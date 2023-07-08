@@ -30,7 +30,7 @@ def generate_response(uploaded_file, google_api_key, query_text):
         db = Chroma.from_documents(texts, embeddings) 
         
         # Create retriever interface
-        retriever = db.as_retriever(k=2, fetch_k=4)
+        retriever = db.as_retriever(k=3, fetch_k=4)
         # retriever = db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .9})
         
         # Create QA chain
@@ -68,8 +68,8 @@ with st.form('myform', clear_on_submit=True):
             del google_api_key
 
 if len(result):
-    st.info(response['result'])
-    #st.info(response)
+    #st.info(response['result'])
+    st.info(response)
     # uncomment this for the full result
     # st.info(response['query'])
     # st.info(response['result'])
