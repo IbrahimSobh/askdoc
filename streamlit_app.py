@@ -42,7 +42,7 @@ def generate_response(uploaded_file, google_api_key, query_text):
                                          return_source_documents=False,
                                          chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
     
-        return qa({"query": question})
+        return qa({"query": query_text})
         #return qa.run(query_text)
 
 
