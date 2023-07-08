@@ -74,5 +74,5 @@ if len(result):
     # uncomment this for the full result
     # st.info(response['query'])
     # st.info(response['result'])
-    # for sd in response['source_documents']:
-    #      st.info(response['source_documents'])
+    for sd in response['source_documents']:
+         st.info(sd.page_content)
