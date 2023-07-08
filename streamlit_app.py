@@ -1,15 +1,17 @@
 import streamlit as st
-from langchain.llms import OpenAI
+#from langchain.llms import OpenAI
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
+#from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 
-from langchain.llms.utils import enforce_stop_tokens
+#from langchain.llms.utils import enforce_stop_tokens
 from langchain.llms import GooglePalm
-from langchain import PromptTemplate, HuggingFaceHub, LLMChain
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings, SentenceTransformerEmbeddings
+from langchain.embeddings import GooglePalmEmbeddings
+
+#from langchain import PromptTemplate, HuggingFaceHub, LLMChain
+#from langchain.text_splitter import RecursiveCharacterTextSplitter
+#from langchain.embeddings import HuggingFaceEmbeddings, SentenceTransformerEmbeddings
 
 # models 
 #embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
