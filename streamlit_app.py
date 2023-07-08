@@ -69,7 +69,8 @@ with st.form('myform', clear_on_submit=True):
             del google_api_key
 
 if len(result):
-    st.info(response)
-    #st.info(response['query'])
-    #st.info(response['result'])
-    #st.info(response['query'])
+    #st.info(response)
+    st.info(response['query'])
+    st.info(response['result'])
+    for sd in response['source_documents']:
+        st.info(response['source_documents'])
