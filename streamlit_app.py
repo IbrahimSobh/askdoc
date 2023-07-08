@@ -36,7 +36,7 @@ def generate_response(uploaded_file, google_api_key, query_text):
         db = Chroma.from_documents(texts, embeddings) 
         
         # Create retriever interface
-        retriever = db.as_retriever()
+        retriever = db.as_retriever(k=3)
         
         # Create QA chain
         #qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=openai_api_key), chain_type='stuff', retriever=retriever)
