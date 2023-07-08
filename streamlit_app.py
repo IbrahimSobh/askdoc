@@ -30,7 +30,7 @@ def generate_response(uploaded_file, google_api_key, query_text):
         db = Chroma.from_documents(texts, embeddings) 
         
         # Create retriever interface
-        retriever = db.as_retriever(k=3, fetch_k=4)
+        retriever = db.as_retriever(k=2, fetch_k=4)
         # retriever = db.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .9})
         
         # Create QA chain
@@ -46,8 +46,8 @@ def generate_response(uploaded_file, google_api_key, query_text):
 
 
 # Page title
-st.set_page_config(page_title='Ask your Doc via PaLM Model 🌴, LangChain 🦜🔗 and Chroma')
-st.title('Ask your Doc via PaLM Model 🌴, LangChain 🦜🔗 and Chroma')
+st.set_page_config(page_title='Ask your Doc via PaLM🌴 Model , LangChain 🦜🔗 and Chroma')
+st.title('Ask your Doc via PaLM🌴 Model , LangChain 🦜🔗 and Chroma')
 
 # File upload
 uploaded_file = st.file_uploader('Upload text file', type='txt')
@@ -58,7 +58,7 @@ query_text = st.text_input('Enter your question:', placeholder = 'Please provide
 # Form input and query
 result = []
 with st.form('myform', clear_on_submit=True):
-    google_api_key = st.text_input('Google PaLM API Key', type='password', disabled=not (uploaded_file and query_text))
+    google_api_key = st.text_input('Google PaLM🌴 API Key', type='password', disabled=not (uploaded_file and query_text))
     submitted = st.form_submit_button('Submit', disabled=not(uploaded_file and query_text))
     #if submitted and openai_api_key.startswith('AIz'):
     if submitted and google_api_key:
