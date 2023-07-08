@@ -1,21 +1,19 @@
 import streamlit as st
-#from langchain.llms import OpenAI
-from langchain.text_splitter import CharacterTextSplitter
-#from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-
-#from langchain.llms.utils import enforce_stop_tokens
 from langchain.llms import GooglePalm
 from langchain.embeddings import GooglePalmEmbeddings
-
-#from langchain import PromptTemplate, HuggingFaceHub, LLMChain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-#from langchain.embeddings import HuggingFaceEmbeddings, SentenceTransformerEmbeddings
+from langchain.prompts import PromptTemplate
 
-# models 
-#embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
-#Palm_llm = GooglePalm(google_api_key=openai_api_key, temperature=0.1, max_output_tokens=128)
+# Build prompt
+template = """Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Use three sentences maximum. Keep the answer as concise as possible. Always say "thanks for asking!" at the end of the answer. 
+{context}
+Question: {question}
+Helpful Answer:"""
+QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
+
+
 
 
 def generate_response(uploaded_file, google_api_key, query_text):
@@ -24,12 +22,10 @@ def generate_response(uploaded_file, google_api_key, query_text):
         documents = [uploaded_file.read().decode()]
         
         # Split documents into chunks
-        # text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=256, chunk_overlap=32, separators=["\n\n", "\n", ",", " ", "."])
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=32, separators=["\n\n", "\n", ",", " ", "."])
         texts = text_splitter.create_documents(documents)
         
         # Select embeddings
-        #embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
         embeddings = GooglePalmEmbeddings(google_api_key=google_api_key)
         
         # Create a vectorstore from documents
@@ -39,14 +35,20 @@ def generate_response(uploaded_file, google_api_key, query_text):
         retriever = db.as_retriever(k=3)
         
         # Create QA chain
-        #qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=openai_api_key), chain_type='stuff', retriever=retriever)
-        qa = RetrievalQA.from_chain_type(llm=GooglePalm(google_api_key=google_api_key, temperature=0.1, max_output_tokens=128), chain_type="stuff", retriever=retriever)
-        return qa.run(query_text)
+        #qa = RetrievalQA.from_chain_type(llm=GooglePalm(google_api_key=google_api_key, temperature=0.1, max_output_tokens=128), chain_type="stuff", retriever=retriever)
+        qa = RetrievalQA.from_chain_type(llm=GooglePalm(google_api_key=google_api_key, temperature=0.1, max_output_tokens=128),
+                                         chain_type="stuff",
+                                         retriever=retriever,
+                                         return_source_documents=False,
+                                         chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    
+        return qa({"query": question})
+        #return qa.run(query_text)
 
 
 # Page title
-st.set_page_config(page_title='🦜🔗 Ask the Doc App')
-st.title('🦜🔗 Ask the Doc App 🦜🔗')
+st.set_page_config(page_title='Ask your Doc via PaLM Model 🌴, LangChain 🦜🔗 and Chroma')
+st.title('Ask your Doc via PaLM Model 🌴, LangChain 🦜🔗 and Chroma')
 
 # File upload
 uploaded_file = st.file_uploader('Upload text file', type='txt')
