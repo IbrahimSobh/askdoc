@@ -2,10 +2,6 @@
 
 Build a Document Question Answering app using LangChain and Streamlit.
 
-## Demo App
-
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://langchain-ask-the-doc.streamlit.app/)
-
 ## Get an OpenAI API key
 
 You can get your own OpenAI API key by following the following instructions:
