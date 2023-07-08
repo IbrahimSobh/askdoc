@@ -14,9 +14,6 @@ Question: {question}
 Helpful Answer:"""
 QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
 
-
-
-
 def generate_response(uploaded_file, google_api_key, query_text):
     # Load document if file is uploaded
     if uploaded_file is not None:
