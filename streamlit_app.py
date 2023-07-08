@@ -69,7 +69,7 @@ with st.form('myform', clear_on_submit=True):
             del google_api_key
 
 if len(result):
-    st.markdown('**Answer:** ' + response['result'])
+    st.markdown('**Answer:** :blue' + response['result'])
     # st.info(response['result'])
     # st.info(response)
     # uncomment this for the full result
@@ -77,5 +77,5 @@ if len(result):
     # st.info(response['result'])
     st.markdown('**References:** ')
     for i, sd in enumerate(response['source_documents']):
-        st.markdown('**Ref '+ str(i) +' :** ' + sd.page_content) 
+        st.markdown('**Ref '+ str(i) +' :** :gray' + sd.page_content) 
         #st.info(sd.page_content)
