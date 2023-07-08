@@ -12,7 +12,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings, SentenceTransformerEmbeddings
 
 # models 
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+#embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 #Palm_llm = GooglePalm(google_api_key=openai_api_key, temperature=0.1, max_output_tokens=128)
 
 
@@ -27,6 +27,7 @@ def generate_response(uploaded_file, openai_api_key, query_text):
         
         # Select embeddings
         #embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+        embeddings = GooglePalmEmbeddings()
         
         # Create a vectorstore from documents
         db = Chroma.from_documents(texts, embeddings) 
