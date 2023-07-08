@@ -18,7 +18,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 #Palm_llm = GooglePalm(google_api_key=openai_api_key, temperature=0.1, max_output_tokens=128)
 
 
-def generate_response(uploaded_file, openai_api_key, query_text):
+def generate_response(uploaded_file, google_api_key, query_text):
     # Load document if file is uploaded
     if uploaded_file is not None:
         documents = [uploaded_file.read().decode()]
@@ -30,7 +30,7 @@ def generate_response(uploaded_file, openai_api_key, query_text):
         
         # Select embeddings
         #embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-        embeddings = GooglePalmEmbeddings(google_api_key=openai_api_key)
+        embeddings = GooglePalmEmbeddings(google_api_key=google_api_key)
         
         # Create a vectorstore from documents
         db = Chroma.from_documents(texts, embeddings) 
@@ -40,7 +40,7 @@ def generate_response(uploaded_file, openai_api_key, query_text):
         
         # Create QA chain
         #qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=openai_api_key), chain_type='stuff', retriever=retriever)
-        qa = RetrievalQA.from_chain_type(llm=GooglePalm(google_api_key=openai_api_key, temperature=0.1, max_output_tokens=128), chain_type="stuff", retriever=retriever)
+        qa = RetrievalQA.from_chain_type(llm=GooglePalm(google_api_key=google_api_key, temperature=0.1, max_output_tokens=128), chain_type="stuff", retriever=retriever)
         return qa.run(query_text)
 
 
@@ -60,11 +60,11 @@ with st.form('myform', clear_on_submit=True):
     google_api_key = st.text_input('Google PaLM API Key', type='password', disabled=not (uploaded_file and query_text))
     submitted = st.form_submit_button('Submit', disabled=not(uploaded_file and query_text))
     #if submitted and openai_api_key.startswith('AIz'):
-    if submitted and openai_api_key:
+    if submitted and google_api_key:
         with st.spinner('Calculating...'):
-            response = generate_response(uploaded_file, openai_api_key, query_text)
+            response = generate_response(uploaded_file, google_api_key, query_text)
             result.append(response)
-            del openai_api_key
+            del google_api_key
 
 if len(result):
     st.info(response)
