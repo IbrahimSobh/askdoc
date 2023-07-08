@@ -70,12 +70,8 @@ with st.form('myform', clear_on_submit=True):
 
 if len(result):
     st.markdown('**Answer:** **:blue[' + response['result'] + "]**")
-    # st.info(response['result'])
-    # st.info(response)
-    # uncomment this for the full result
-    # st.info(response['query'])
-    # st.info(response['result'])
+    st.markdown('---")
     st.markdown('**References:** ')
     for i, sd in enumerate(response['source_documents']):
-        st.markdown('**Ref ' + str(i) + '** :green[' + sd.page_content[:50] + "... ]") 
+        st.markdown('**Ref ' + str(i) + '** :green[' + sd.page_content[:70] + "... ]") 
         #st.info(sd.page_content)
