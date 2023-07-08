@@ -69,6 +69,7 @@ with st.form('myform', clear_on_submit=True):
             del google_api_key
 
 if len(result):
+    st.markdown('**Answer:**', response['result'])
     st.info(response['result'])
     st.info(response)
     # uncomment this for the full result
